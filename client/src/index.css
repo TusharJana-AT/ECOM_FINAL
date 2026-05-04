@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+/* src/
+  api/
+  auth/
+  components/
+  features/
+    cart/
+  layouts/
+    PublicLayout.jsx
+    PrivateLayout.jsx
+    AdminLayout.jsx
+  pages/
+    Home.jsx
+    Product.jsx
+    Cart.jsx
+    Checkout.jsx
+    Success.jsx
+    Login.jsx
+    Register.jsx
+    admin/
+      AdminDashboard.jsx
+      AdminProducts.jsx
+      EditProduct.jsx
+  routes/
+    router.jsx
+    PrivateRoute.jsx
+    AdminRoute.jsx */
