@@ -11,7 +11,6 @@ const PublicLayout = () => {
       
       <Navbar/>
 
-      {/* Main Content */}
       <main className="flex-1">
         <Outlet />
       </main>
