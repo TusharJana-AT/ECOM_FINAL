@@ -18,8 +18,8 @@ A full-stack **e-commerce web application** built using the MERN stack with Post
 - React.js
 - Axios
 - React Router DOM
-- Context API / State Management
-- Tailwind CSS / CSS Modules
+- Context API 
+- Tailwind CSS 
 
 ### Backend
 - Node.js
@@ -223,5 +223,5 @@ npm run dev
 
 ## 👨‍💻 Author
 
-Built by **Tushar 🚀**
+Built by **Tushar Jana**
 
