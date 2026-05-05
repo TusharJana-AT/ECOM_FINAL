@@ -16,6 +16,8 @@ const Wishlist = () => {
       try {
         const res = await getWish();
         setWishlist(res.data.wishlist);
+        console.log("WISHLIST",res.data);
+        
       } catch (err) {
         console.error(err);
       } finally {
@@ -42,13 +44,13 @@ const Wishlist = () => {
     }
   };
 
-  // if (loading) {
-  //   return (
-  //     <div className="text-center mt-10 text-gray-500">
-  //       Loading wishlist...
-  //     </div>
-  //   );
-  // }
+  if (loading) {
+    return (
+      <div className="text-center mt-10 text-gray-500">
+        Loading wishlist...
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-6xl mx-auto p-4">

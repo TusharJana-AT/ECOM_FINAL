@@ -20,6 +20,11 @@ export const getWishList=async(userId)=>{
     })
 }
 
+// SELECT Products.id, Products.name, Products.price, Products.imageUrl
+// FROM Products
+// JOIN WishLists ON Products.id = WishLists.productId
+// WHERE WishLists.userId = userId;
+
 export const removeWish=async(userId,productId)=>{
     return await WishList.destroy({
         where:{

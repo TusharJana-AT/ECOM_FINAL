@@ -16,10 +16,12 @@ const Checkout = () => {
   const [loading, setLoading] = useState(false);
   const {user} = useAuth()
 
-  console.log("ADDr",user);
+  // console.log("Cart:",cartItems);
+  
+  // console.log("ADDr",user);
   
 
-  console.log("Address",user?.address);
+  // console.log("Address",user?.address);
   
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
@@ -87,7 +89,6 @@ const Checkout = () => {
           <span className="text-sm">Use saved address</span>
         </label>
 
-        {/* Address Input */}
         <input
           value={address}
           onChange={(e) => setAddress(e.target.value)}

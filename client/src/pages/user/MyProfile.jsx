@@ -21,10 +21,10 @@ function MyProfile() {
     fetchUser();
   }, []);
 
-//   if (loading) {
-//     return <p className="text-center mt-10">Loading...</p>;
-//   }
-
+  if (loading) {
+    return <p className="text-center mt-10">Loading...</p>;
+  }
+  
   return (
     <div className="min-h-screen bg-gray-100 p-6">
 
