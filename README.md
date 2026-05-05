@@ -83,7 +83,7 @@ erDiagram
     PRODUCT {
         int id PK
         string name
-        float price
+        number price
         string description
     }
 
@@ -105,7 +105,7 @@ erDiagram
         int userId FK
         int productId FK
     }
-
+```
 
 ---
 
