@@ -1,16 +1,7 @@
-Nice — I’ve upgraded it into a **GitHub-ready professional README** with:
-
-* 🔰 Badges (stack + status style)
-* 🧠 ER Diagram (Mermaid)
-* 🖼️ Screenshot placeholders section
-* ✨ Cleaner structure
-* 📌 More “portfolio-level” presentation
-
-You can paste this directly into your repo.
 
 ---
 
-````md id="readme-v2"
+````md
 # 🛒 MERN E-Commerce Platform
 
 ![MERN Stack](https://img.shields.io/badge/MERN-FullStack-green)
@@ -75,7 +66,6 @@ A full-stack **e-commerce web application** built using the MERN stack with Post
 
 ```mermaid
 erDiagram
-
     USER ||--o{ ORDER : places
     ORDER ||--o{ ORDER_ITEM : contains
     PRODUCT ||--o{ ORDER_ITEM : appears_in
@@ -184,28 +174,6 @@ npm run dev
 
 ---
 
-## 📸 Screenshots
-
-> Add your screenshots here
-
-### 🏠 Home Page
-
-![Home](https://via.placeholder.com/900x400?text=Home+Page)
-
-### 🛍️ Product Page
-
-![Products](https://via.placeholder.com/900x400?text=Products+Page)
-
-### 🛒 Cart Page
-
-![Cart](https://via.placeholder.com/900x400?text=Cart+Page)
-
-### 🔐 Login Page
-
-![Login](https://via.placeholder.com/900x400?text=Login+Page)
-
----
-
 ## 🔐 Authentication Flow
 
 * JWT token stored in localStorage
@@ -247,7 +215,7 @@ npm run dev
 ## 🛠️ Future Improvements
 
 * 💳 Payment gateway (Razorpay / Stripe)
-* 🔍 Product search & filters from backend
+* 🔍 Product search & filters
 * 📦 Order tracking system
 * ☁️ Image upload (Cloudinary)
 * 📊 Analytics dashboard
