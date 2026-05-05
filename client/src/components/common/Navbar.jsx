@@ -22,12 +22,14 @@ const Navbar = () => {
 
         {role !== "admin" && (
           <>
-            
             <Link to="/orders" className="relative hover:text-gray-300">
               My Orders
             </Link>
             <Link to="/wishlist" className="relative hover:text-gray-300">
               WishList
+            </Link>
+            <Link to="/my-profile" className="relative hover:text-gray-300">
+              My Profile
             </Link>
             <Link
               to="/cart"

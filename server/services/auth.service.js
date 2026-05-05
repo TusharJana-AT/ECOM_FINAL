@@ -24,7 +24,7 @@ export const registerUser = async ({
     email,
     password: hashed,
     phone,
-    address
+    address,
   });
 
   const token = jwt.sign({ id: user.id, role: user.role }, SECRET, {
@@ -59,8 +59,9 @@ export const loginUser = async ({ email, password }) => {
 };
 
 export const getUser = async (id) => {
-  const user = await User.findOne(
-    { where: { id } ,
-  attributes:{exclude:["password"]}},);
+  const user = await User.findOne({
+    where: { id },
+    attributes: { exclude: ["password"] },
+  });
   return user;
 };

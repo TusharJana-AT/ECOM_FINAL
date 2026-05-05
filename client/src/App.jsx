@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./components/Navbar";
+
 import { Outlet, RouterProvider } from "react-router-dom";
 import { AuthProvider } from "./auth/AuthContext";
 import { Provider } from "react-redux";
