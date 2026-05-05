@@ -1,7 +1,6 @@
 
 ---
 
-````md
 # 🛒 MERN E-Commerce Platform
 
 ![MERN Stack](https://img.shields.io/badge/MERN-FullStack-green)
@@ -106,7 +105,7 @@ erDiagram
         int userId FK
         int productId FK
     }
-````
+
 
 ---
 
