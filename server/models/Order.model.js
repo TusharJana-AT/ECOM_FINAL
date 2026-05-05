@@ -7,11 +7,13 @@ const Order = sequelize.define("Order", {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
+  
   status: {
     type: DataTypes.STRING,
     defaultValue: "pending",
   },
-   paymentMethod: {
+
+  paymentMethod: {
     type: DataTypes.STRING, 
   },
 

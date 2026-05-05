@@ -15,7 +15,7 @@ const WishList=sequelize.define("WishList",{
         indexes:[
             {
                 unique:true,
-                fields:["userId","productId"] // fo rthe unique
+                fields:["userId","productId"] 
             }
         ]
     }
