@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { api } from "../api/api";
+import { api } from "../../api/api";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../features/cart/cartSlice";
+import { addToCart } from "../../features/cart/cartSlice";
 
 const Product = () => {
   const { id } = useParams(); 

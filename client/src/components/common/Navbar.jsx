@@ -1,6 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../../auth/AuthContext";
 import { ShoppingCart } from "lucide-react";
 
 const Navbar = () => {

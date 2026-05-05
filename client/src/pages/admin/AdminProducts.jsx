@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getProducts, deleteProduct, editProduct } from "../api/api";
+import { getProducts, deleteProduct, editProduct } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 
 function AdminProducts() {

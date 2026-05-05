@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import { clearCart } from "../features/cart/cartSlice";
+import { clearCart } from "../../features/cart/cartSlice";
 
 const Success = () => {
   const { state } = useLocation();

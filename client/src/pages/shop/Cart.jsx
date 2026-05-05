@@ -1,7 +1,7 @@
 
 
 import { useSelector, useDispatch } from "react-redux";
-import { addToCart, removeCart, decreaseQty } from "../features/cart/cartSlice";
+import { addToCart, removeCart, decreaseQty } from "../../features/cart/cartSlice";
 import { useNavigate } from "react-router-dom";
 
 const Cart = () => {

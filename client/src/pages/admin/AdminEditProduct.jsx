@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { editProduct, getSingleProducts } from "../api/api";
+import { editProduct, getSingleProducts } from "../../api/api";
 
 function AdminEditProduct() {
   const { id } = useParams();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getOrders } from "../api/api";
-import { useAuth } from "../auth/AuthContext";
+import { getOrders } from "../../api/api";
+import { useAuth } from "../../auth/AuthContext";
 import { Link } from "react-router-dom";
 
 const MyOrders = () => {

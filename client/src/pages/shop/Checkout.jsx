@@ -2,10 +2,10 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-import { clearCart } from "../features/cart/cartSlice";
-import { api, createOrder } from "../api/api";
+import { clearCart } from "../../features/cart/cartSlice";
+import { api, createOrder } from "../../api/api";
 import { toast } from "react-toastify";
-import { useAuth } from "../auth/AuthContext";
+import { useAuth } from "../../auth/AuthContext";
 const Checkout = () => {
   const cartItems = useSelector((state) => state.cart);
   const navigate = useNavigate();

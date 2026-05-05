@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
-import { addToCart } from "../features/cart/cartSlice";
+import { addToCart } from "../../features/cart/cartSlice";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { addWish, removeWish } from "../api/api";
+import { addWish, removeWish } from "../../api/api";
 import { useState } from "react";
 import {
   addToWishlist,
   removeFromWishlist,
-} from "../features/cart/wishlistSlice";
-import { useAuth } from "../auth/AuthContext";
+} from "../../features/cart/wishlistSlice";
+import { useAuth } from "../../auth/AuthContext";
 
 const ProductCard = ({ product, handleDelete }) => {
   const dispatch = useDispatch();

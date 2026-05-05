@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
-import { deleteProduct, getProducts, getWish } from "../api/api";
+import { deleteProduct, getProducts, getWish } from "../../api/api";
 import { useDispatch } from "react-redux";
-import { setWishlist } from "../features/cart/wishlistSlice";
-import { useAuth } from "../auth/AuthContext";
+import { setWishlist } from "../../features/cart/wishlistSlice";
+import { useAuth } from "../../auth/AuthContext";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
