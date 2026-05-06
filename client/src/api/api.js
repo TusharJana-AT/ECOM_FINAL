@@ -91,6 +91,10 @@ export const loginUser = (data) =>
 export const registerUser = (data) =>
   api.post("/auth/register", data, { showSuccessToast: true });
 
+export const editProfile=(data)=>{
+  api.put("/auth/edit-user",data,{showSuccessToast:true})
+}
+
 export const createOrder = (data) =>
   api.post("/orders", data, { showSuccessToast: true });
 export const getOrders = (data) => {

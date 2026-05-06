@@ -51,7 +51,6 @@ function AdminEditProduct() {
     }));
   };
 
-  // Handle submit
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSubmitting(true);
@@ -68,7 +67,6 @@ function AdminEditProduct() {
     }
   };
 
-  // Loading state
   if (loading) {
     return <p className="p-6">Loading product...</p>;
   }
@@ -154,7 +152,7 @@ function AdminEditProduct() {
             <p className="text-sm text-gray-500 mb-1">Preview:</p>
             <img
               src={form.imageUrl}
-              onChange={handleChange}
+              // onChange={handleChange}
               alt="preview"
               className="w-32 h-32 object-cover border rounded"
             />

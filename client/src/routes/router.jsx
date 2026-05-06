@@ -31,6 +31,7 @@ import MyOrders from "../pages/order/MyOrders";
 import OrderDetail from "../pages/order/OrdersDetail";
 import PrivateLayout from "../layouts/PrivateLayout";
 import MyProfile from "../pages/user/MyProfile";
+import EditProfile from "../pages/user/EditProfile";
 
 
 const router = createBrowserRouter([
@@ -107,6 +108,9 @@ const router = createBrowserRouter([
       },{
         path:'/my-profile',
         element:<MyProfile/>
+      },{
+        path:'/edit-profile',
+        element:<EditProfile/>
       },
       {
         path: "/checkout",
