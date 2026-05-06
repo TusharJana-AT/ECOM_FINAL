@@ -1,5 +1,5 @@
 import express from "express";
-import { register, login, getCurrentUser } from "../controllers/auth.controller.js";
+import { register, login, getCurrentUser, editProfile } from "../controllers/auth.controller.js";
 import { validate } from "../middleware/validations.middleware.js";
 import { loginValidation, registerValidation } from "../validations/auth.validation.js";
 import { verifyToken } from "../middleware/auth.middleware.js";
@@ -11,6 +11,7 @@ authRouter.post("/login",validate(loginValidation), login);
 
 authRouter.get("/me", verifyToken, getCurrentUser);
 
+authRouter.put("/edit-user",verifyToken,editProfile)
 
 
 export default authRouter;

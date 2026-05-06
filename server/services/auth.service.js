@@ -65,3 +65,10 @@ export const getUser = async (id) => {
   });
   return user;
 };
+
+
+export const updateProfile=async(id,data)=>{
+  const [updated]=await User.update(data,{where: {id}})
+  if(!updated) return null;
+  return await User.findByPk(id)
+}
