@@ -53,7 +53,8 @@ const ProductCard = ({ product, handleDelete }) => {
     <div className="border border-b-black rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-200 bg-white">
       <div className="bg-slate-100 flex items-center justify-center h-50 overflow-hidden">
         <img
-          src={product.imageUrl}
+          // src={`http://localhost:5000${product.image}`}
+          src={product.image}
           alt={product.name}
           className="object-contain h-full w-full group-hover:scale-105 transition-transform duration-300"
         />

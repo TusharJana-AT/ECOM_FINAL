@@ -60,7 +60,7 @@ const Home = () => {
   </div>
       {showFilters && (
         <div className="mb-4 space-y-3">
-          {/* Search */}
+
           <input
             type="text"
             placeholder="Search products..."
@@ -68,8 +68,7 @@ const Home = () => {
             onChange={(e) => setSearch(e.target.value)}
             className="border p-2 rounded w-full"
           />
-
-          {/* Category */}
+          
           <select
             value={category}
             onChange={(e) => setCategory(e.target.value)}

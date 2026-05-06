@@ -12,7 +12,7 @@ const OrderItem = sequelize.define("OrderItem", {
     allowNull: false,
   },
   productName: DataTypes.STRING,
-  imageUrl: DataTypes.STRING,
+  image: DataTypes.STRING,
 });
 
 export default OrderItem

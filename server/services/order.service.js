@@ -40,7 +40,7 @@ export const createOrderService = async (userId, data) => {
         quantity: item.quantity,
         price: product.price,
         productName: product.name,
-        imageUrl: product.imageUrl,
+        image: product.image,
       };
     });
 

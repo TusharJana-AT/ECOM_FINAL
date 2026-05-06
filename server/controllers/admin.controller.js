@@ -38,7 +38,7 @@ export const getAllOrders = async (req, res) => {
           include: [
             {
               model: Product,
-              attributes: ["id", "name", "price", "imageUrl"],
+              attributes: ["id", "name", "price", "image"],
             },
           ],
         },

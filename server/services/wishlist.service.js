@@ -14,7 +14,7 @@ export const getWishList=async(userId)=>{
             {
                 model:Product,
                 as:"wishlist",
-                attributes:["id","name","price","imageUrl"],
+                attributes:["id","name","price","image"],
             }
         ]
     })
