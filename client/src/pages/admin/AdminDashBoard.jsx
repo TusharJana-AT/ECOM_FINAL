@@ -8,7 +8,7 @@ const AdminDashboard = () => {
     const fetchData = async () => {
       try {
         const res = await getDashboardStats();
-        setStats(res.data);
+        setStats(res.data.data);
       } catch (err) {
         console.error(err);
       }

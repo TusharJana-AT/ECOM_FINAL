@@ -7,7 +7,7 @@ const AdminOrders = () => {
   const fetchOrders = async () => {
     try {
       const res = await api.get("/orders/admin");
-      setOrders(res.data);
+      setOrders(res.data.data);
       console.log("FETCH", res.data);
     } catch (err) {
       console.error(err);

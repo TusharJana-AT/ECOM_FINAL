@@ -9,7 +9,15 @@ export const getProducts = async () => {
 };
 
 export const getProductById = async (id) => {
-  return await Product.findByPk(id);
+   const product = await Product.findByPk(id);
+
+   if (!product) {
+      const err = new Error("Product not found");
+      err.statusCode = 404;
+      throw err;
+   }
+
+   return product;
 };
 
 export const updateProduct=async(id,data)=>{
@@ -22,7 +30,13 @@ export const updateProduct=async(id,data)=>{
 }
 
 export const deleteProduct=async(id)=>{
-    return await Product.destroy({
+    const deleted= await Product.destroy({
         where:{id}
     })
+    if (!deleted) {
+      const err = new Error("Product not found");
+      err.statusCode = 404;
+      throw err;
+   }
+   return true
 }

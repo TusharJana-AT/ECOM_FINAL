@@ -15,8 +15,8 @@ const Wishlist = () => {
     const fetchWishlist = async () => {
       try {
         const res = await getWish();
-        setWishlist(res.data.wishlist);
-        console.log("WISHLIST",res.data);
+        setWishlist(res.data.data.wishlist);
+        console.log("WISHLIST",res.data.data);
         
       } catch (err) {
         console.error(err);
@@ -76,7 +76,7 @@ const Wishlist = () => {
                 className="bg-white rounded-xl shadow hover:shadow-lg transition p-4 flex flex-col"
               >
                 <img
-                  src={item.imageUrl}
+                  src={item.image}
                   alt={item.name}
                   className="h-40 object-contain mb-3"
                 />

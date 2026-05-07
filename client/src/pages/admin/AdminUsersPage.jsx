@@ -6,9 +6,9 @@ function AdminUsersPage() {
     const fetchAllUsers=async()=>{
         try {
             const res=await getAllUser()
-            setUsers(res.data)
-            console.log(res);
-            console.log(res.data);
+            setUsers(res.data.data)
+            // console.log(res);
+            // console.log(res.data);
         } catch (error) {
             console.error(error);
             

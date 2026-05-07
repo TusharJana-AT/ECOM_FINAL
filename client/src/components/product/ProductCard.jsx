@@ -22,7 +22,8 @@ const ProductCard = ({ product, handleDelete }) => {
   // console.log("DATA",wishlist);
 
   const isWishListed = wishlist.some((item) => item.id === product.id);
-
+  console.log("DILLL",isWishListed);
+  
   const toggleWishlist = async () => {
     if (user?.role !== "user") return;
     try { 

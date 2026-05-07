@@ -6,18 +6,17 @@ function AdminProducts() {
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
 
-
-  const handleEdit=async(id)=>{
+  const handleEdit = async (id) => {
     try {
-      navigate(`/admin/edit/${id}`)
+      navigate(`/admin/edit/${id}`);
     } catch (error) {
       console.error(error.response?.data || error.message);
     }
-  }
+  };
 
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure?")) return;
-      
+
     try {
       await deleteProduct(id);
       setProducts((prev) => prev.filter((p) => p.id !== id));
@@ -31,9 +30,9 @@ function AdminProducts() {
     const fetchProducts = async () => {
       try {
         const res = await getProducts();
-        console.log("Priducts",res.data);
-        
-        setProducts(res.data);
+        console.log("Priducts", res.data);
+
+        setProducts(res.data.data);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -64,9 +63,13 @@ function AdminProducts() {
           <tbody>
             {products.map((p) => (
               <tr key={p.id} className="border-t">
-                
                 <td className="p-2">{p.name}</td>
-                <td className="p-2"><img className="w-16 h-16 object-contain rounded-sm" src={p.imageUrl} /></td>
+                <td className="p-2">
+                  <img
+                    className="w-16 h-16 object-contain rounded-sm"
+                    src={p.image}
+                  />
+                </td>
                 <td className="p-2">{p.category}</td>
                 <td className="p-2">{p.stock}</td>
                 <td className="p-2">₹ {p.price}</td>

@@ -1,8 +1,10 @@
+import { messages } from "../messages/index.js";
 import Product from "../models/Product.model.js";
 import * as ProductServices from "../services/product.service.js";
+import { response } from "../utils/response.util.js";
 //create
 
-export const createProduct = async (req, res) => {
+export const createProduct = async (req, res,next) => {
   try {
     const imagePath = req.file
       ? `http://localhost:5000/uploads/${req.file.filename}`
@@ -14,90 +16,119 @@ export const createProduct = async (req, res) => {
     };
     const product = await ProductServices.createProduct(productData);
 
-    res.status(201).json({
-      success: true,
-      message: "Product created successfully",
-      data: product,
-    });
+    // res.status(201).json({
+    //   success: true,
+    //   message: "Product created successfully",
+    //   data: product,
+    // });
+    return response(res,{
+      statusCode:201,
+      message:messages.product.PRODUCT_CREATED,
+      data:product
+    })
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: err.message,
-    });
+    // res.status(500).json({
+    //   success: false,
+    //   message: err.message,
+    // });
+    return next(err)
   }
 };
 
 //get
 
-export const getAllProduct = async (req, res) => {
+export const getAllProduct = async (req, res, next) => {
   try {
     const product = await ProductServices.getProducts();
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    // res.status(200).json(product);
+    return response(res,{
+      statusCode:200,
+      data:product
+    })
+  } catch (err) {
+    // res.status(500).json({ message: error.message });
+    return next(err)
   }
 };
 
-export const getSingleProduct = async (req, res) => {
+export const getSingleProduct = async (req, res, next) => {
   try {
     const product = await ProductServices.getProductById(req.params.id);
     if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+      // return res.status(404).json({ message: "Product not found" });
+      return response(res,{
+        statusCode:404,
+        message :messages.product.PRODUCT_NOT_FOUND
+      })
     }
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+    // res.status(200).json(product);
+    return response(res,{
+      statusCode:200,
+      data:product
+    })
+  } catch (err) {
+    // res.status(500).json({ message: error.message });
+    return next(err)
   }
 };
 
 //update
 
-export const updateProduct = async (req, res) => {
+export const updateProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const product = await Product.findByPk(id);
+    const product = await ProductServices.getProductById(req.params.id)
 
     if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+      // return res.status(404).json({ message: "Product not found" });
+      return response(res,{
+        statusCode:404,
+        message:messages.product.PRODUCT_NOT_FOUND
+      })
     }
 
     let updateData = { ...req.body };
 
     if (req.file) {
-      updateData.image = `http://localhost:5000/uploads/${req.file.filename}`;
+      updateData.image = `/uploads/${req.file.filename}`;
     }
 
     const updated = await ProductServices.updateProduct(id, updateData);
 
-    res.status(200).json(updated);
+    // res.status(200).json(updated);
+    return response(res,{
+      statusCode:200,
+      data:updated
+    })
 
-  } catch (error) {
-    res.status(500).json({ message: error.message });
+  } catch (err) {
+    // res.status(500).json({ message: error.message });
+    return next(err)
   }
 };
 
 //delete
 
-export const deleteProduct = async (req, res) => {
+export const deleteProduct = async (req, res, next) => {
   try {
-    const deleted = await ProductServices.deleteProduct(req.params.id);
+     await ProductServices.deleteProduct(req.params.id);
 
-    if (!deleted) {
-      return res.status(404).json({
-        success: false,
-        message: "Product not found",
-      });
-    }
+    
 
-    res.status(200).json({
-      success: true,
-      message: "Product deleted successfully",
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
+    // res.status(200).json({
+    //   success: true,
+    //   message: "Product deleted successfully",
+    // });
+    return response(res,{
+      statusCode:200,
+      message:messages.product.PRODUCT_DELETED
+    })
+  } catch (err) {
+    // res.status(500).json({
+    //   success: false,
+    //   message: error.message,
+    // });
+    return next(err)
   }
 };

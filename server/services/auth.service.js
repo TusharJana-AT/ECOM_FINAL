@@ -14,8 +14,11 @@ export const registerUser = async ({
   const existingUser = await User.findOne({ where: { email } });
 
   if (existingUser) {
-    throw new Error("User already exists");
-  }
+  const err = new Error("User already exists");
+  err.statusCode = 409;
+
+  throw err;
+}
 
   const hashed = await bcrypt.hash(password, 10);
 
@@ -40,13 +43,17 @@ export const loginUser = async ({ email, password }) => {
   const user = await User.findOne({ where: { email } });
 
   if (!user) {
-    throw new Error("User not found");
+    const err= new Error("User not found");
+    err.statusCode=400
+    throw err
   }
 
   const match = await bcrypt.compare(password, user.password);
 
   if (!match) {
-    throw new Error("Wrong password");
+    const err= new Error("Wrong password");
+    err.statusCode=400
+    throw err
   }
 
   const token = jwt.sign({ id: user.id, role: user.role }, SECRET, {

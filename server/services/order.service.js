@@ -8,11 +8,16 @@ export const createOrderService = async (userId, data) => {
     const { items, paymentMethod, shippingAddress } = data;
 
     if (!items || items.length === 0) {
-      throw new Error("No items in order");
+      const err = new Error("No items in order");
+      err.statusCode = 400;
+      throw err;
     }
 
     if (!paymentMethod || !shippingAddress) {
-      throw new Error("Missing payment or address");
+      // throw new Error("Missing payment or address");
+      const err = new Error("Missing payment or address");
+      err.statusCode = 400;
+      throw err;
     }
 
     let totalPrice = 0;
@@ -27,10 +32,18 @@ export const createOrderService = async (userId, data) => {
     const orderItemsData = items.map((item) => {
       const product = products.find((p) => p.id === item.productId);
 
-      if (!product) throw new Error("Product not found");
+      // if (!product) throw new Error("Product not found");
+      if (!product) {
+        const err = new Error("Product not found");
+        err.statusCode = 404;
+        throw err;
+      }
 
       if (product.stock < item.quantity) {
-        throw new Error(`${product.name} is out of stock`);
+        // throw new Error(`${product.name} is out of stock`);
+        const err = new Error(`${product.name} is out of stock`);
+        err.statusCode = 400;
+        throw err;
       }
 
       totalPrice += product.price * item.quantity;
@@ -53,7 +66,7 @@ export const createOrderService = async (userId, data) => {
         paymentStatus: paymentMethod === "COD" ? "pending" : "paid",
         status: "pending",
       },
-      { transaction: t }
+      { transaction: t },
     );
 
     const finalItems = orderItemsData.map((item) => ({
@@ -76,7 +89,7 @@ export const createOrderService = async (userId, data) => {
     };
   } catch (err) {
     await t.rollback();
-    throw err; 
+    throw err;
   }
 };
 

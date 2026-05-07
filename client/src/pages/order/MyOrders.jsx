@@ -14,9 +14,9 @@ const MyOrders = () => {
     const fetchOrders = async () => {
       try {
         const res = await getOrders();
-        setOrders(res.data);
-        console.log("Fetch Orders", res.data);
-        console.log("USERS", user);
+        setOrders(res.data.data);
+        console.log("Fetch Orders", res.data.data);
+        // console.log("USERS", user);
       } catch (err) {
         setError("Failed to load orders");
         console.error(err.response?.data || err.message);
@@ -46,7 +46,7 @@ const MyOrders = () => {
 
       {orders.map((order) => (
         <div key={order.id} className="bg-white shadow rounded-xl p-4 mb-6">
-          {/* Header */}
+
           <div className="flex justify-between items-center mb-2">
             <h2 className="font-semibold text-lg">Order #{order.id}</h2>
             <div>
@@ -65,7 +65,6 @@ const MyOrders = () => {
             </div>
           </div>
 
-          {/* Dates */}
           <p className="text-xs text-gray-500">
             Ordered: {new Date(order.createdAt).toLocaleString()}
           </p>
@@ -94,7 +93,6 @@ const MyOrders = () => {
             <p>Status: {order.paymentStatus || "N/A"}</p>
           </div>
 
-          {/* Items */}
           <div className="mt-4 space-y-3">
             {order.OrderItems?.map((item) => (
               <div
@@ -102,7 +100,7 @@ const MyOrders = () => {
                 className="flex gap-4 items-center border-t pt-3"
               >
                 <img
-                  src={item.imageUrl}
+                  src={item.image}
                   alt={item.productName}
                   className="w-16 h-16 object-cover rounded border"
                 />

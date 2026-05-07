@@ -10,7 +10,7 @@ function AdminEditProduct() {
     name: "",
     price: "",
     description: "",
-    imageUrl: "",
+    image: "",
     stock: "",
     category: "",
   });
@@ -24,12 +24,12 @@ function AdminEditProduct() {
       try {
         const res = await getSingleProducts(id);
         setForm({
-          name: res.data?.name || "",
-          price: res.data?.price || "",
-          description: res.data?.description || "",
-          imageUrl: res.data?.imageUrl || "",
-          stock: res.data?.stock || "",
-          category: res.data?.category || "",
+          name: res.data?.data?.name || "",
+          price: res.data?.data?.price || "",
+          description: res.data?.data?.description || "",
+          image: res.data?.data?.image || "",
+          stock: res.data?.data?.stock || "",
+          category: res.data?.data?.category || "",
         });
       } catch (err) {
         setError("Failed to load product");
@@ -42,22 +42,45 @@ function AdminEditProduct() {
     fetchProduct();
   }, [id]);
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+
+  //   setForm((prev) => ({
+  //     ...prev,
+  //     [name]: name === "price" ? Number(value) : value,
+  //   }));
+  // };
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, files } = e.target;
 
     setForm((prev) => ({
       ...prev,
-      [name]: name === "price" ? Number(value) : value,
+      [name]: files
+        ? files[0]
+        : name === "price" || name === "stock"
+          ? Number(value)
+          : value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitting(true);
-    setError("");
 
     try {
-      await editProduct(id, form);
+      setSubmitting(true);
+      setError("");
+      const formData = new FormData();
+
+      formData.append("name", form.name);
+      formData.append("price", form.price);
+      formData.append("description", form.description);
+      formData.append("stock", form.stock);
+      formData.append("category", form.category);
+      if (form.image) {
+        formData.append("image", form.image);
+      }
+
+      await editProduct(id, formData);
       navigate("/admin/products");
     } catch (err) {
       setError("Failed to update product");
@@ -137,22 +160,25 @@ function AdminEditProduct() {
         </select>
 
         <div>
-          <label className="block mb-1 font-medium">imageUrl URL</label>
+          <label className="block mb-1 font-medium">Image</label>
           <input
-            type="text"
-            name="imageUrl"
-            value={form.imageUrl}
+            type="file"
+            name="image"
             onChange={handleChange}
             className="w-full border p-2 rounded"
           />
         </div>
 
-        {form.imageUrl && (
+        {form.image && (
           <div>
             <p className="text-sm text-gray-500 mb-1">Preview:</p>
+
             <img
-              src={form.imageUrl}
-              // onChange={handleChange}
+              src={
+                typeof form.image === "string"
+                  ? form.image
+                  : URL.createObjectURL(form.image)
+              }
               alt="preview"
               className="w-32 h-32 object-cover border rounded"
             />

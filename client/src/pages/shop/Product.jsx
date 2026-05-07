@@ -21,7 +21,7 @@ console.log(cartItems);
     
     const fetchProduct = async () => {
       const res = await api.get(`/products/${id}`);
-      setProduct(res.data);
+      setProduct(res.data.data);
     };
 
     fetchProduct();
@@ -35,7 +35,7 @@ console.log(cartItems);
 
   return (
     <div style={{ padding: "20px" }}>
-      <img src={product.imageUrl} alt="" width="200px" />
+      <img src={product.image} alt="" width="200px" />
 
       <h2>{product.name}</h2>
       <p>{product.description}</p>

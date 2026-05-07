@@ -27,7 +27,7 @@ const Cart = () => {
               className="flex gap-4 border-b py-4 items-center"
             >
               <img
-                src={item.imageUrl}
+                src={item.image}
                 alt={item.name}
                 className="w-28 h-28 object-contain"
               />

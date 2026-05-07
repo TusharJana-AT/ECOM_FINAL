@@ -1,151 +1,127 @@
-import Order from "../models/Order.model.js";
-import OrderItem from "../models/OrderItem.model.js";
-import Product from "../models/Product.model.js";
-import User from "../models/User.model.js";
+import * as AdminServices from "../services/admin.service.js";
+import { response } from "../utils/response.util.js";
+import { messages } from "../messages/index.js";
 
-
-export const adminDashboard=async (req, res) => {
+export const adminDashboard=async (req, res,next) => {
   try {
-    const totalOrders = await Order.count();
-
-    const orders = await Order.findAll();
-
-    const totalRevenue = orders.reduce(
-      (sum, order) => sum + order.totalPrice,
-      0
-    );
-
-    const totalUsers = await User.count();
-
-    res.json({
-      totalOrders,
-      totalRevenue,
-      totalUsers,
-    });
+    const data = await AdminServices.getDashboardStats();
+    return response(res,{
+      statusCode:200,
+      data
+    })
   } catch (err) {
-    console.error("DASHBOARD ERROR:", err);
-    res.status(500).json({ message: "Server error" });
+    // console.error("DASHBOARD ERROR:", err);
+    // res.status(500).json({ message: "Server error" });
+    return next(err)
   }
 }
 
 
-export const getAllOrders = async (req, res) => {
+export const getAllOrders = async (req, res, next) => {
   try {
-    const orders = await Order.findAll({
-      include: [
-        {
-          model: OrderItem,
-          include: [
-            {
-              model: Product,
-              attributes: ["id", "name", "price", "image"],
-            },
-          ],
-        },
-      ],
-      order: [["createdAt", "DESC"]],
-    });
+    const data = await AdminServices.getOrders()
 
-    res.json(orders);
+    // res.json(orders);
+    return response(res,{
+      statusCode:200,
+      data
+    })
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    // res.status(500).json({ message: err.message });
+    return next(err)
   }
 };
 
 
-export const updateOrderStatus = async (req, res) => {
+export const updateOrderStatus = async (req, res, next) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
 
-    const order = await Order.findByPk(id);
+    await AdminServices.changeOrderStatus(id,status)
 
-    if (!order) {
-      return res.status(404).json({
-        success: false,
-        message: "Order not found"
-      });
-    }
-
-    if (order.status === "delivered") {
-      return res.status(400).json({
-        success: false,
-        message: "Delivered order cannot be updated"
-      });
-    }
-
-    order.status = status;
-
-    if (status === "delivered") {
-      order.deliveredAt = new Date();
-    }
-
-    await order.save();
-
-    res.status(200).json({
-      success: true,
-      message: "Order updated successfully",
-      data: order
-    });
+    // res.status(200).json({
+    //   success: true,
+    //   message: "Order updated successfully",
+    //   data: order
+    // });
+    return response(res,{
+      statusCode:200,
+      message:messages.order.ORDER_UPDATED
+    })
 
   } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: err.message
-    });
+    // res.status(500).json({
+    //   success: false,
+    //   message: err.message
+    // });
+    return next(err)
   }
 };
 
-export const updatePaymentStatus = async(req,res)=>{
+export const updatePaymentStatus = async(req,res,next)=>{
   try {
     const {id}= req.params;
     const {paymentStatus}=req.body;
-    const order=await Order.findByPk(id)
-    if(!order) return res.json(404).json({message:"Order Not Found"})
+    await AdminServices.changePaymentStatus(id,paymentStatus)
+    // res.status(200).json({message:"Status Updated successfully"})
+    return response(res,{
+      statusCode:200,
+      message:messages.general.SUCCESS
+    })
 
-    order.paymentStatus=paymentStatus
-    await order.save()
-    res.status(200).json({message:"Status Updated successfully"})
-
-  } catch (error) {
-    res.status(500).json({message:error.message})
+  } catch (err) {
+    // res.status(500).json({message:error.message})
+    return next(err)
   }
 }
 
 
 
 
-export const getAllUsersDetails = async(req,res)=>{
+export const getAllUsersDetails = async(req,res,next)=>{
   try {
-    const data = await User.findAll()
-    return res.status(200).json(data)
-  } catch (error) {
-    return res.status(500).json({message:error.message})
+    const data=await AdminServices.getUsers()
+    // return res.status(200).json(data)
+    return response(res,{
+      statusCode:200,
+      data
+    })
+  } catch (err) {
+    // return res.status(500).json({message:error.message})
+    return next(err)
   }
 }
 
-export const deleteUser = async(req,res)=>{
+export const deleteUser = async(req,res,next)=>{
   try {
-    const deleted = await User.destroy({ where:{id:req.params.id}})
-    if(!deleted) return res.status(404).json({message:"USer NOT Found"})
+    await AdminServices.removeUser(req.params.id)
 
-    return res.status(200).json({message:"User has been deleted"})
-  } catch (error) {
-    return res.status(500).json({message:error.message})
+
+    // return res.status(200).json({message:"User has been deleted"})
+    return response(res,{
+      statusCode:200,
+      message:messages.general.SUCCESS
+    })
+  } catch (err) {
+    // return res.status(500).json({message:error.message})
+    return next(err)
   }
 }
 
-export const updateRole=async(req,res)=>{
+export const updateRole=async(req,res,next)=>{
   try {
     const {id}=req.params
     const data=req.body
-    const [updated]=await User.update(data,{where:{id}})
-
-    if (!updated) return null;
-    const myData= await User.findByPk(id);
-  return res.status(200).json(myData)
-  } catch (error) {
-    return res.status(500).json({message:error.message})
+    const myData=await AdminServices.changeUserRole(id,data)
+  // return res.status(200).json(myData)
+    return response(res,{
+      statusCode:200,
+      data:myData
+    })
+  } catch (err) {
+    // return res.status(500).json({message:error.message})
+    return next(err)
   }
 }
 

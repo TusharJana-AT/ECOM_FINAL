@@ -11,12 +11,12 @@ const Home = () => {
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
-  const { user } = useAuth();
+  const { user,loading } = useAuth();
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const res = await getProducts();
-        setProducts(res.data);
+        setProducts(res.data.data);
 
         console.log(res.data);
       } catch (error) {
@@ -34,7 +34,7 @@ const Home = () => {
       try {
         if (!user || user.role !== "user") return;
         const res = await getWish();
-        dispatch(setWishlist(res.data.wishlist));
+        dispatch(setWishlist(res.data.data.wishlist));
       } catch (error) {
         console.log(error);
       }
@@ -51,12 +51,12 @@ const Home = () => {
   return (
     <div className="min-h-screen max-w-7xl mx-auto px-4 py-4">
       <div className="flex justify-end mb-4">
-    <button
+    {!loading &&<button
       onClick={() => setShowFilters((prev) => !prev)}
       className="px-4 py-2 text-white rounded hover:bg-gray-300"
     >
       🔎
-    </button>
+    </button>}
   </div>
       {showFilters && (
         <div className="mb-4 space-y-3">
