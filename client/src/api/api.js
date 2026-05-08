@@ -1,4 +1,5 @@
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const api = axios.create({
   baseURL: "http://localhost:5000/api",
@@ -19,7 +20,7 @@ api.interceptors.request.use((config) => {
 });
 
 // import { toast } from "sonner";
-import { toast } from "react-toastify";
+
 
 api.interceptors.response.use(
   (response) => {
@@ -65,74 +66,17 @@ api.interceptors.response.use(
     return Promise.reject(error);
   },
 );
+//////////////////////////////
 
-export const getProducts = () => {
-  return api.get("/products", { skipToast: true });
-};
 
-export const getSingleProducts = (id) => {
-  return api.get(`/products/${id}`);
-};
 
-export const createProduct = (data) => {
-  return api.post("/products", data, { showSuccessToast: true });
-};
 
-export const deleteProduct = (id) => {
-  return api.delete(`/products/${id}`, { showSuccessToast: true });
-};
 
-export const editProduct = (id, data) => {
-  return api.put(`/products/${id}`, data);
-};
 
-export const loginUser = (data) =>
-  api.post("/auth/login", data, { showSuccessToast: true }); //, successMessage: "Login successful 🎉"
-export const registerUser = (data) =>
-  api.post("/auth/register", data, { showSuccessToast: true });
 
-export const editProfile=(data)=>{
-  api.put("/auth/edit-user",data,{showSuccessToast:true})
-}
 
-export const createOrder = (data) =>
-  api.post("/orders", data, { showSuccessToast: true });
-export const getOrders = (data) => {
-  return api.get("/orders", { skipToast: true });
-};
 
-export const getUser = () => {
-  return api.get("/auth/me");
-};
 
-export const updateUserRole = (id, data) => {
-  return api.put(`/admin/updateUser/${id}`, data, { showSuccessToast: true });
-};
-
-export const getAllUser = () => {
-  return api.get("/admin/allUsers");
-};
-
-export const deleteUser = (userId) => {
-  return api.delete(`/admin/deleteUser/${userId}`, { showSuccessToast: true });
-};
-
-export const getDashboardStats = () => {
-  return api.get("/admin/dashboard");
-};
 
 //wishList
 
-export const addWish = (productId) => {
-  console.warn("ADD WISHLIST : ",productId);
-  
-  return api.post("/wishlist", { productId }, { showSuccessToast: true },);
-};
-
-export const getWish = () => {
-  return api.get("/wishlist",{ skipToast: true },);
-};
-
-export const removeWish = (productId) => {
-  return api.delete(`/wishlist/${productId}`, { showSuccessToast: true });
-};
