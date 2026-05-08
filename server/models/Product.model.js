@@ -6,12 +6,22 @@ const Product = sequelize.define("Product", {
     type: DataTypes.STRING,
     allowNull: false,
   },
+  slug: {
+    type: DataTypes.STRING,
+    unique: true,
+  },
   price: {
     type: DataTypes.FLOAT,
     allowNull: false,
   },
+  discountPrice: {
+    type: DataTypes.FLOAT,
+  },
   description: {
     type: DataTypes.TEXT,
+  },
+  shortDescription: {
+    type: DataTypes.STRING,
   },
   image: {
     type: DataTypes.STRING,
@@ -20,15 +30,36 @@ const Product = sequelize.define("Product", {
     type: DataTypes.INTEGER,
     defaultValue: 0,
   },
+  brand: {
+    type: DataTypes.STRING,
+  },
 
   category: {
     type: DataTypes.STRING,
   },
+
+  rating: {
+    type: DataTypes.FLOAT,
+    defaultValue: 0,
+  },
+
+  numReviews: {
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+  },
+
+  isFeatured: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false,
+  },
+
+  isActive: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: true,
+  },
 });
 
 export default Product;
-
-
 
 // const Product = sequelize.define("Product", {
 //   name: {
@@ -54,9 +85,9 @@ export default Product;
 //     type: DataTypes.TEXT,
 //   },
 
-//   shortDescription: {
-//     type: DataTypes.STRING,
-//   },
+// shortDescription: {
+//   type: DataTypes.STRING,
+// },
 
 //   image: {
 //     type: DataTypes.STRING,

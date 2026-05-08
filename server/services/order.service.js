@@ -6,20 +6,7 @@ export const createOrderService = async (userId, data) => {
 
   try {
     const { items, paymentMethod, shippingAddress } = data;
-
-    if (!items || items.length === 0) {
-      const err = new Error("No items in order");
-      err.statusCode = 400;
-      throw err;
-    }
-
-    if (!paymentMethod || !shippingAddress) {
-      // throw new Error("Missing payment or address");
-      const err = new Error("Missing payment or address");
-      err.statusCode = 400;
-      throw err;
-    }
-
+    
     let totalPrice = 0;
 
     const productIds = items.map((i) => i.productId);
@@ -28,9 +15,10 @@ export const createOrderService = async (userId, data) => {
       where: { id: productIds },
       transaction: t,
     });
+    const productMap = new Map(products.map((p) => [p.id, p]));
 
     const orderItemsData = items.map((item) => {
-      const product = products.find((p) => p.id === item.productId);
+      const product = productMap.get(item.productId);
 
       // if (!product) throw new Error("Product not found");
       if (!product) {
@@ -77,7 +65,7 @@ export const createOrderService = async (userId, data) => {
     await OrderItem.bulkCreate(finalItems, { transaction: t });
 
     for (const item of items) {
-      const product = products.find((p) => p.id === item.productId);
+      const product = productMap.get(item.productId);
       product.stock -= item.quantity;
       await product.save({ transaction: t });
     }

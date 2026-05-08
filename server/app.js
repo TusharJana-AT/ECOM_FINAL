@@ -7,6 +7,7 @@ import adminRouter from './routes/admin.route.js';
 import wishRouter from './routes/wishlist.route.js';
 import { response } from './utils/response.util.js';
 import { messages } from './messages/index.js';
+import reviewRouter from './routes/review.route.js';
 
 const app=express()
 
@@ -22,7 +23,7 @@ app.use("/api/orders", orderRouter);
 app.use("/api/admin", adminRouter);
 
 app.use("/api/wishlist",wishRouter)
-
+app.use("/api/reviews",reviewRouter)
 
 app.use((err, req, res, next) => {
   console.log(err);

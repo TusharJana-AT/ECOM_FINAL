@@ -2,17 +2,18 @@ import Order from "../models/Order.model.js";
 import OrderItem from "../models/OrderItem.model.js";
 import Product from "../models/Product.model.js";
 import User from "../models/User.model.js";
+import { fn, col } from "sequelize";
 
 export const getDashboardStats = async () => {
   const totalOrders = await Order.count();
 
-  const orders = await Order.findAll();
+  // const orders = await Order.findAll();
 
-  const totalRevenue = orders.reduce(
-    (sum, order) => sum + order.totalPrice,
-    0
-  );
-
+  // const totalRevenue = orders.reduce(
+  //   (sum, order) => sum + order.totalPrice,
+  //   0
+  // );
+  const totalRevenue = await Order.sum("totalPrice");
   const totalUsers = await User.count();
 
   return {

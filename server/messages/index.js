@@ -46,5 +46,9 @@ export const messages = {
   wishlist:{
     WISHLIST_SUCCESS:'WishList Added',
     WISHLIST_REMOVED:'WishList Removed'
+  },
+  review:{
+    REVIEW_ADD:'Review has been added',
+    REVIEW_UPDATED:'Review has been Updated'
   }
 };

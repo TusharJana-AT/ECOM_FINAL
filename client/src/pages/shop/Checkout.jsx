@@ -11,18 +11,17 @@ const Checkout = () => {
   const navigate = useNavigate();
 
   const [address, setAddress] = useState("");
-  const [useSaved,setUseSaved]=useState(false)
+  const [useSaved, setUseSaved] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("COD");
   const [loading, setLoading] = useState(false);
-  const {user} = useAuth()
+  const { user } = useAuth();
 
   // console.log("Cart:",cartItems);
-  
+
   // console.log("ADDr",user);
-  
 
   // console.log("Address",user?.address);
-  
+
   const total = cartItems.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0,
@@ -52,28 +51,29 @@ const Checkout = () => {
         shippingAddress: address,
         paymentMethod,
       });
+      // console.log("OOHHHH",res.data);
       // toast.success("Order Placed Successfully.")
       navigate("/success", {
         state: {
           total,
-          orderId: res.data.orderId,
+          orderId: res.data.data,
         },
       });
     } catch (err) {
-      console.error(err);
-      toast.error("Order failed");
+      console.log("ORDER ERROR:", err.response?.data || err.message);
+      toast.error(err.response?.data?.message || "Order failed");
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(()=>{
-    if(useSaved){
-      setAddress(user?.address||"")
-    }else{
-      setAddress("")
+  useEffect(() => {
+    if (useSaved) {
+      setAddress(user?.address || "");
+    } else {
+      setAddress("");
     }
-  },[useSaved])
+  }, [useSaved]);
 
   return (
     <div className="max-w-4xl mx-auto p-6">

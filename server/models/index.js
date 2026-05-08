@@ -2,6 +2,7 @@
 import Order from "./Order.model.js";
 import OrderItem from "./OrderItem.model.js";
 import Product from "./Product.model.js";
+import Review from "./Review.model.js";
 import User from "./User.model.js";
 import WishList from "./WishList.model.js";
 
@@ -15,6 +16,13 @@ OrderItem.belongsTo(Order, { foreignKey: "orderId" });
 
 Product.hasMany(OrderItem, { foreignKey: "productId" });
 OrderItem.belongsTo(Product, { foreignKey: "productId" });
+
+User.hasMany(Review,{foreignKey:"userId"});
+Review.belongsTo(User,{foreignKey:"userId"})
+
+Product.hasMany(Review,{foreignKey:"productId"})
+Review.belongsTo(Product,{foreignKey:"productId"})
+
 
 User.belongsToMany(Product,{
   through:WishList,

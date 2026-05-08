@@ -7,7 +7,7 @@ import { response } from "../utils/response.util.js";
 export const createOrder = async (req, res, next) => {
   try {
     const result = await createOrderService(req.user.id, req.body);
-
+          console.log("OOHHHH",res.data);
     // res.status(201).json({
     //   success: true,
     //   message: "Order placed successfully",

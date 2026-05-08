@@ -1,6 +1,7 @@
 import User from "../models/User.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import generateToken from "../utils/generateToken.js";
 
 const SECRET = process.env.MY_SECRET;
 
@@ -14,11 +15,11 @@ export const registerUser = async ({
   const existingUser = await User.findOne({ where: { email } });
 
   if (existingUser) {
-  const err = new Error("User already exists");
-  err.statusCode = 409;
+    const err = new Error("User already exists");
+    err.statusCode = 409;
 
-  throw err;
-}
+    throw err;
+  }
 
   const hashed = await bcrypt.hash(password, 10);
 
@@ -30,9 +31,11 @@ export const registerUser = async ({
     address,
   });
 
-  const token = jwt.sign({ id: user.id, role: user.role }, SECRET, {
-    expiresIn: "1d",
-  });
+  // const token = jwt.sign({ id: user.id, role: user.role }, SECRET, {
+  //   expiresIn: "1d",
+  // });
+
+  const token = generateToken({ id: user.id, role: user.role });
 
   const { password: _, ...userData } = user.toJSON();
 
@@ -43,17 +46,17 @@ export const loginUser = async ({ email, password }) => {
   const user = await User.findOne({ where: { email } });
 
   if (!user) {
-    const err= new Error("User not found");
-    err.statusCode=400
-    throw err
+    const err = new Error("User not found");
+    err.statusCode = 400;
+    throw err;
   }
 
   const match = await bcrypt.compare(password, user.password);
 
   if (!match) {
-    const err= new Error("Wrong password");
-    err.statusCode=400
-    throw err
+    const err = new Error("Wrong password");
+    err.statusCode = 400;
+    throw err;
   }
 
   const token = jwt.sign({ id: user.id, role: user.role }, SECRET, {
@@ -73,9 +76,8 @@ export const getUser = async (id) => {
   return user;
 };
 
-
-export const updateProfile=async(id,data)=>{
-  const [updated]=await User.update(data,{where: {id}})
-  if(!updated) return null;
-  return await User.findByPk(id)
-}
+export const updateProfile = async (id, data) => {
+  const [updated] = await User.update(data, { where: { id } });
+  if (!updated) return null;
+  return await User.findByPk(id);
+};

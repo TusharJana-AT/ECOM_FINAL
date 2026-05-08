@@ -24,7 +24,11 @@ export const updateProduct=async(id,data)=>{
     const [updated]= await Product.update(data,{
         where:{id}
     })
-    if (!updated) return null;
+    if (!updated) {
+      const err=new Error("Not Updated")
+      err.statusCode=400
+      throw err
+    }
 
   return await Product.findByPk(id);
 }

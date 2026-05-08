@@ -2,7 +2,7 @@
 // import { env } from '../config/index.js';
 
 // Determine if the application is running in production mode
-const production = process.env.nodeEnv === 'prod';
+const production = process.env.NODE_ENV === 'prod';
 
 // Define an asynchronous function to handle responses
 const response = async (res, returnResponse) => {

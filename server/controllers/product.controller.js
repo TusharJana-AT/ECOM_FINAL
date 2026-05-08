@@ -1,13 +1,14 @@
 import { messages } from "../messages/index.js";
-import Product from "../models/Product.model.js";
+
 import * as ProductServices from "../services/product.service.js";
 import { response } from "../utils/response.util.js";
 //create
-
+const BASE_URL = process.env.BASE_URL;
 export const createProduct = async (req, res,next) => {
   try {
+    
     const imagePath = req.file
-      ? `http://localhost:5000/uploads/${req.file.filename}`
+      ? `${BASE_URL}/uploads/${req.file.filename}`
       : null;
 
     const productData = {
@@ -54,13 +55,7 @@ export const getAllProduct = async (req, res, next) => {
 export const getSingleProduct = async (req, res, next) => {
   try {
     const product = await ProductServices.getProductById(req.params.id);
-    if (!product) {
-      // return res.status(404).json({ message: "Product not found" });
-      return response(res,{
-        statusCode:404,
-        message :messages.product.PRODUCT_NOT_FOUND
-      })
-    }
+    
     // res.status(200).json(product);
     return response(res,{
       statusCode:200,
@@ -78,20 +73,11 @@ export const updateProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const product = await ProductServices.getProductById(req.params.id)
-
-    if (!product) {
-      // return res.status(404).json({ message: "Product not found" });
-      return response(res,{
-        statusCode:404,
-        message:messages.product.PRODUCT_NOT_FOUND
-      })
-    }
 
     let updateData = { ...req.body };
 
     if (req.file) {
-      updateData.image = `/uploads/${req.file.filename}`;
+      updateData.image = `${BASE_URL}/uploads/${req.file.filename}`;
     }
 
     const updated = await ProductServices.updateProduct(id, updateData);
