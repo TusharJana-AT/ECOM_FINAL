@@ -2,7 +2,6 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 
 import GuestRoute from "./GuestRoute";
-import { getProducts } from "../api/api";
 
 import AdminRoute from "./AdminRoute";
 

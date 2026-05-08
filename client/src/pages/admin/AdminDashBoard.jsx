@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getDashboardStats } from "../../api/api";
+import { getDashboardStats } from "../../api/adminApi";
+
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState(null);

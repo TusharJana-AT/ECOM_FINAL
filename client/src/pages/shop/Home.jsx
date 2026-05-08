@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 
-import { deleteProduct, getProducts, getWish } from "../../api/api";
+
 import { useDispatch } from "react-redux";
 import { setWishlist } from "../../features/cart/wishlistSlice";
 import { useAuth } from "../../auth/AuthContext";
 import ProductCard from "../../components/product/ProductCard";
+import { getProducts } from "../../api/productapi";
+import { getWish } from "../../api/wishlistApi";
 
 const Home = () => {
   const [products, setProducts] = useState([]);

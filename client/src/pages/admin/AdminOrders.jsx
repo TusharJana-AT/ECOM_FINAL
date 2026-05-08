@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { api } from "../../api/api";
+
+import { getAllOrders, updateDeliveryStatus, updatePaymentMode } from "../../api/adminApi";
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([]);
 
   const fetchOrders = async () => {
     try {
-      const res = await api.get("/orders/admin");
+      const res = await getAllOrders();
       setOrders(res.data.data);
       console.log("FETCH", res.data);
     } catch (err) {
@@ -17,13 +18,20 @@ const AdminOrders = () => {
   useEffect(() => {
     fetchOrders();
   }, []);
-
+  const updatePaymentStatus = async (id, paymentStatus) => {
+    try {
+      await updatePaymentMode(id,paymentStatus)
+      // fetchOrders();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const updateStatus = async (id, status) => {
     try {
-      await api.put(`/orders/${id}/status`, { status });
+      await updateDeliveryStatus(id,status)
       console.log("Status", status);
       if (status === "delivered") {
-        updatePaymentStatus(id, "paid");
+        await updatePaymentStatus(id, "paid");
 
       }
       fetchOrders(); 
@@ -33,14 +41,7 @@ const AdminOrders = () => {
   };
 
 
-  const updatePaymentStatus = async (id, paymentStatus) => {
-    try {
-      await api.put(`/orders/${id}/paymentStatus`, { paymentStatus });
-      fetchOrders();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  
 
   return (
     <div className="p-6">

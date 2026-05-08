@@ -2,13 +2,14 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { addWish, removeWish } from "../../api/api";
+
 import { useState } from "react";
 import {
   addToWishlist,
   removeFromWishlist,
 } from "../../features/cart/wishlistSlice";
 import { useAuth } from "../../auth/AuthContext";
+import { addWish, removeWish } from "../../api/wishlistApi";
 
 const ProductCard = ({ product, handleDelete }) => {
   const dispatch = useDispatch();

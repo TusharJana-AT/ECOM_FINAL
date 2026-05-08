@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { editProduct, editProfile, getUser } from "../../api/api";
 import { useNavigate } from "react-router-dom";
+import { editProfile, getUser } from "../../api/authapi";
 
 function EditProfile() {
   const [userInfo, setUserInfo] = useState({

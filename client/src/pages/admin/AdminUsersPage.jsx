@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { deleteUser, getAllUser, updateUserRole } from '../../api/api';
+import { deleteUser, getAllUser, updateUserRole } from '../../api/adminApi'
+
 
 function AdminUsersPage() {
     const [users, setUsers] = useState([])

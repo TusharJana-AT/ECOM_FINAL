@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getProducts, deleteProduct, editProduct } from "../../api/api";
+
 import { useNavigate } from "react-router-dom";
+import { deleteProduct, getProducts } from "../../api/productapi";
 
 function AdminProducts() {
   const [products, setProducts] = useState([]);

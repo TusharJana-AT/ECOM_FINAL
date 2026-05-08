@@ -3,7 +3,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { clearWishlist } from "../features/cart/wishlistSlice";
 import { clearCart } from "../features/cart/cartSlice";
-import { getUser } from "../api/api";
+import { getUser } from "../api/authapi";
+
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {

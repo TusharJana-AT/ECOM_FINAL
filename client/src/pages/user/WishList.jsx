@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getWish, removeWish } from "../../api/api";
+
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
+import { getWish, removeWish } from "../../api/wishlistApi";
 
 const Wishlist = () => {
   const [wishlist, setWishlist] = useState([]);

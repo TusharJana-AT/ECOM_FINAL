@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { registerUser } from "../../api/api";
+
 import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../api/authapi";
 
 
 const Register = () => {

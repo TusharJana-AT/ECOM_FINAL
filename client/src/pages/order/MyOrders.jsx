@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getOrders } from "../../api/api";
+
 import { useAuth } from "../../auth/AuthContext";
 import { Link } from "react-router-dom";
+import { getOrders } from "../../api/orderapi";
 
 const MyOrders = () => {
   const [orders, setOrders] = useState([]);

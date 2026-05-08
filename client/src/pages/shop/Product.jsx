@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { api } from "../../api/api";
+
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cart/cartSlice";
+import { getSingleProducts } from "../../api/productapi";
 
 const Product = () => {
   const { id } = useParams(); 
@@ -20,7 +21,7 @@ console.log(cartItems);
     console.log("aaa",product);
     
     const fetchProduct = async () => {
-      const res = await api.get(`/products/${id}`);
+      const res = await getSingleProducts(id);
       setProduct(res.data.data);
     };
 

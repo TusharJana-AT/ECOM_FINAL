@@ -5,8 +5,8 @@ import { ShoppingCart } from "lucide-react";
 
 const Navbar = () => {
   const cartItems = useSelector((state) => state.cart);
-  const { user, logout,loading } = useAuth();
-if (loading) return null;
+  const { user, logout, loading } = useAuth();
+  if (loading) return null;
   const role = user?.role;
 
   return (

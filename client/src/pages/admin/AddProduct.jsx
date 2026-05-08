@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
-import { createProduct } from "../../api/api";
+
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
+import { createProduct } from "../../api/productapi";
 
 const AddProduct = () => {
   const [form, setForm] = useState({

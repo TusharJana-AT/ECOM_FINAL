@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getUser } from "../../api/api";
+
 import { Link, useNavigate } from "react-router-dom";
 import { Package, Heart } from "lucide-react";
 import { useAuth } from "../../auth/AuthContext";
+import { getUser } from "../../api/authapi";
 function MyProfile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
