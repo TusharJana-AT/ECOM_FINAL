@@ -4,10 +4,10 @@ import { verifyToken } from "../middleware/auth.middleware.js";
 
 const reviewRouter = new Router()
 
-reviewRouter.post('/add-review',verifyToken,addReview)
-reviewRouter.get('/get-review/:id',verifyToken,getReview)
+reviewRouter.post('/add-review/:productId',verifyToken,addReview)
+reviewRouter.get('/get-review/:productId',verifyToken,getReview)
 
-reviewRouter.put('/edit-review/:id',verifyToken,updateReview)
-reviewRouter.delete('/remove-review/:id',verifyToken,deleteReview)
+reviewRouter.put('/edit-review/:reviewId',verifyToken,updateReview)
+reviewRouter.delete('/remove-review/:reviewId',verifyToken,deleteReview)
 
 export default reviewRouter

@@ -18,14 +18,7 @@ const AdminOrders = () => {
   useEffect(() => {
     fetchOrders();
   }, []);
-  const updatePaymentStatus = async (id, paymentStatus) => {
-    try {
-      await updatePaymentMode(id,paymentStatus)
-      // fetchOrders();
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
   const updateStatus = async (id, status) => {
     try {
       await updateDeliveryStatus(id,status)
@@ -37,6 +30,14 @@ const AdminOrders = () => {
       fetchOrders(); 
     } catch (err) {
       console.error(err);
+    }
+  };
+    const updatePaymentStatus = async (id, paymentStatus) => {
+    try {
+      await updatePaymentMode(id,paymentStatus)
+      // fetchOrders();
+    } catch (error) {
+      console.error(error);
     }
   };
 

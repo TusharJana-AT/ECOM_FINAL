@@ -51,9 +51,13 @@ export const findReview = async (productId) => {
   return review;
 };
 
-export const updateReview = async ({ id, userId, rating, comment }) => {
-  const review = await Review.findByPk(id);
+export const updateReview = async ({ reviewId, userId, rating, comment }) => {
+  // const review = await Review.findByPk(reviewId);
+  console.log("reviewId:", reviewId);
 
+const review = await Review.findByPk(reviewId);
+
+console.log("review:", review);
   if (!review) {
     const err = new Error("No Review");
     err.statusCode = 400;
@@ -80,8 +84,8 @@ if (comment !== undefined) review.comment = comment;
 });
 };
 
-export const deleteReview = async ({ id, userId }) => {
-  const review = await Review.findByPk(id);
+export const deleteReview = async ({ reviewId, userId }) => {
+  const review = await Review.findByPk(reviewId );
 
   if (!review) {
     const err = new Error("Review not found");

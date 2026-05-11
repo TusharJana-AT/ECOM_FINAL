@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const res = await getUser();
       setUser(res.data.data);
-      console.log("JANA", res.data);
+      // console.log("JANA", res.data.data);
     } catch (error) {
       localStorage.removeItem("token");
     } finally {

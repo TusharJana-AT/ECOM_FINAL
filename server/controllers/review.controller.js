@@ -7,8 +7,8 @@ import { response } from "../utils/response.util.js";
 export const addReview = async (req, res, next) => {
   try {
     const userId = req.user.id;
-
-    const { productId, rating, comment } = req.body;
+    const productId=req.params.productId
+    const { rating, comment } = req.body;
 
     const review = await ReviewServices.createReview({
       userId,
@@ -30,7 +30,7 @@ export const addReview = async (req, res, next) => {
 
 export const getReview = async (req, res, next) => {
   try {
-    const productId = req.params.id;
+    const productId = req.params.productId;
     const review = await ReviewServices.findReview(productId);
     return response(res, {
       statusCode: 200,
@@ -45,10 +45,10 @@ export const updateReview = async (req, res, next) => {
   try {
     const { rating, comment } = req.body;
     const userId = req.user.id;
-    const id = req.params.id;
-
+    const reviewId = req.params.reviewId;
+    
     const updated = await ReviewServices.updateReview({
-      id,
+      reviewId,
       userId,
       rating,
       comment,
@@ -66,9 +66,9 @@ export const updateReview = async (req, res, next) => {
 
 export const deleteReview = async (req, res, next) => {
   try {
-    const id = req.params.id;
+    const reviewId = req.params.reviewId;
     const userId = req.user.id;
-    const del = await ReviewServices.deleteReview({ id, userId });
+    const del = await ReviewServices.deleteReview({ reviewId, userId });
     return response(res, {
       statusCode: 200,
       message: messages.general.SUCCESS,
