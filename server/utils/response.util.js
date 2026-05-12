@@ -11,7 +11,8 @@ const response = async (res, returnResponse) => {
 
   // Check if the response status code indicates an internal server error
   if (statusCode === 500) {
-    // Handle 500 error here (e.g., logging the error)
+    console.error(error);
+    
   }
 
   // Check if the response status code indicates a bad request

@@ -33,6 +33,7 @@ export const updateProduct=async(id,data)=>{
   return await Product.findByPk(id);
 }
 
+
 export const deleteProduct=async(id)=>{
     const deleted= await Product.destroy({
         where:{id}

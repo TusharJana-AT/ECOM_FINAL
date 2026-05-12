@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 
 import { useDispatch } from "react-redux";
-import { setWishlist } from "../../features/cart/wishlistSlice";
+import { setWishlist } from "../../features/wishlist/wishlistSlice";
 import { useAuth } from "../../auth/AuthContext";
 import ProductCard from "../../components/product/ProductCard";
 import { getProducts } from "../../api/productapi";

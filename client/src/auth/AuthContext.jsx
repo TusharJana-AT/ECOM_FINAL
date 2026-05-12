@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 // import { jwtDecode } from "jwt-decode";
 import { useDispatch } from "react-redux";
-import { clearWishlist } from "../features/cart/wishlistSlice";
+import { clearWishlist } from "../features/wishlist/wishlistSlice";
 import { clearCart } from "../features/cart/cartSlice";
 import { getUser } from "../api/authapi";
 

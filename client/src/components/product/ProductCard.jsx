@@ -7,7 +7,7 @@ import { useState } from "react";
 import {
   addToWishlist,
   removeFromWishlist,
-} from "../../features/cart/wishlistSlice";
+} from "../../features/wishlist/wishlistSlice";
 import { useAuth } from "../../auth/AuthContext";
 import { addWish, removeWish } from "../../api/wishlistApi";
 

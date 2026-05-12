@@ -41,5 +41,6 @@ export {
   Product,
   Order,
   OrderItem,
-  WishList
+  WishList,
+  Review
 };

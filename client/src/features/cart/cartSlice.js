@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { useDispatch } from "react-redux";
-import { clearWishlist } from "./wishlistSlice";
+import { clearWishlist } from "../wishlist/wishlistSlice";
 
 const initialState = JSON.parse(localStorage.getItem("cart")) || [];
 
@@ -13,7 +13,6 @@ const cartSlice = createSlice({
 
       if (existing) {
         existing.quantity += 1;
-        
       } else {
         state.push({ ...action.payload, quantity: 1 });
       }

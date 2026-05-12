@@ -1,6 +1,5 @@
-import User from "../models/User.model.js";
-import Review from "../models/Review.model.js";
-import Product from "../models/Product.model.js";
+
+import { Review, Product, User } from "../models/index.js";
 
 export const createReview = async ({ userId, productId, rating, comment }) => {
   const existingReview = await Review.findOne({ where: { userId, productId } });

@@ -15,7 +15,7 @@ export const createOrderService = async (userId, data) => {
       where: { id: productIds },
       transaction: t,
     });
-    const productMap = new Map(products.map((p) => [p.id, p]));
+    const productMap = new Map(products.map((p) => [p.id, p])); //its the whole product info mapped
 
     const orderItemsData = items.map((item) => {
       const product = productMap.get(item.productId);

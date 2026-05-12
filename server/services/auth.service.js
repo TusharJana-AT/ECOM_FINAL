@@ -1,4 +1,4 @@
-import User from "../models/User.model.js";
+import {  User } from "../models/index.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import generateToken from "../utils/generateToken.js";
@@ -59,9 +59,10 @@ export const loginUser = async ({ email, password }) => {
     throw err;
   }
 
-  const token = jwt.sign({ id: user.id, role: user.role }, SECRET, {
-    expiresIn: "1d",
-  });
+  // const token = jwt.sign({ id: user.id, role: user.role }, SECRET, {
+  //   expiresIn: "1d",
+  // });
+  const token = generateToken({ id: user.id, role: user.role });
 
   const { password: _, ...userData } = user.toJSON();
 

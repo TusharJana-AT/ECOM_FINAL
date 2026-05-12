@@ -56,7 +56,6 @@ export const getSingleProduct = async (req, res, next) => {
   try {
     const product = await ProductServices.getProductById(req.params.id);
     
-    // res.status(200).json(product);
     return response(res,{
       statusCode:200,
       data:product

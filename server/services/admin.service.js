@@ -1,7 +1,5 @@
-import Order from "../models/Order.model.js";
-import OrderItem from "../models/OrderItem.model.js";
-import Product from "../models/Product.model.js";
-import User from "../models/User.model.js";
+
+import { Order, OrderItem, Product, User } from "../models/index.js";
 import { fn, col } from "sequelize";
 
 export const getDashboardStats = async () => {
@@ -36,7 +34,7 @@ export const getOrders = async () => {
         ],
       },
     ],
-    order: [["createdAt", "DESC"]],
+    order: [["createdAt", "DESC"]], 
   });
 };
 

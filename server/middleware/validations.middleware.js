@@ -1,12 +1,20 @@
 export const validate=(schema)=>(req,res,next)=>{
     try {
         req.body=schema.parse(req.body)
-        
         next()
     } catch (error) {
-      return res.status(400).json({
-        success:false,
-        errors:error.errors
-      }) 
+      // return res.status(400).json({
+      //   success:false,
+      //   errors:error.errors
+      // }) 
+      if (error.name === "ZodError") {
+      error.statusCode = 400;
+
+      error.message = error.issues
+        .map((err) => err.message)
+        .join(", ");
+    }
+
+    return next(error);
     }
 }
