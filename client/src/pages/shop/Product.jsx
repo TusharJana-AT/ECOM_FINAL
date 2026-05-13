@@ -12,7 +12,8 @@ const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState({});
   const [review, setReview] = useState([]);
-
+  const [loading, setLoading] = useState(true);
+  const [reviewLoading, setReviewLoading] = useState(true);
   const [form, setForm] = useState({
     rating: "",
     comment: "",
@@ -31,11 +32,18 @@ const Product = () => {
   // console.log("myRev", myReview);
 
   useEffect(() => {
-    // console.log("aaa",product);
-
     const fetchProduct = async () => {
-      const res = await getSingleProducts(id);
-      setProduct(res.data.data);
+      try {
+        setLoading(true);
+
+        const res = await getSingleProducts(id);
+
+        setProduct(res.data.data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchProduct();
@@ -43,21 +51,30 @@ const Product = () => {
 
   useEffect(() => {
     const getProductReviews = async () => {
-      const res = await getReview(id);
+      try {
+        setReviewLoading(true);
 
-      // console.log("REs", res.data);
+        const res = await getReview(id);
 
-      setReview(res.data.data);
+        setReview(res.data.data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setReviewLoading(false);
+      }
     };
+
     getProductReviews();
-  }, [id,review]);
+  }, [id]);
+
   // console.log("Review", review);
   // console.log("aaa2", product);
   // console.log("Product", product.id);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addReview(id, form);
+      const res=await addReview(id, form);
+      setReview((prev) => [res.data.data, ...prev]);
       setForm({
         rating: "",
         comment: "",
@@ -73,21 +90,24 @@ const Product = () => {
       [name]: name === "rating" ? Number(value) : value,
     });
   };
-  if (!product?.id) {
-    return <h2>Loading...</h2>;
-  }
 
-  const handleDelete = async(reviewId)=>{
+
+  const handleDelete = async (reviewId) => {
     try {
-      await deleteReview(reviewId)
-      setReview((prev)=>prev.filter((val)=>val.id!==id))
-        console.log("USer Deleted");
+      await deleteReview(reviewId);
+      setReview((prev) => prev.filter((val) => val.id !== reviewId));
+      console.log("USer Deleted");
     } catch (error) {
       console.log(error);
-      
     }
-  }
+  };
   // {review.map((rev)=>(console.log("REVVV",rev)))}
+
+  
+  if (loading) {
+    return <h2>Loading product...</h2>;
+  }
+
 
   return (
     <div className="max-w-6xl mx-auto px-6 py-10">
@@ -101,87 +121,66 @@ const Product = () => {
           />
         </div>
 
-        {/* Info */}
-<div className="flex flex-col justify-center">
+        <div className="flex flex-col justify-center">
+          <span className="w-fit bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm mb-4 capitalize">
+            {product.category}
+          </span>
 
-  {/* Category */}
-  <span className="w-fit bg-gray-100 text-gray-600 px-3 py-1 rounded-full text-sm mb-4 capitalize">
-    {product.category}
-  </span>
+          <h1 className="text-4xl font-bold mb-3">{product.name}</h1>
 
-  {/* Product Name */}
-  <h1 className="text-4xl font-bold mb-3">
-    {product.name}
-  </h1>
+          <p className="text-gray-500 mb-4">
+            Brand:
+            <span className="font-medium text-black ml-1">
+              {product.brand || "No Brand"}
+            </span>
+          </p>
 
-  {/* Brand */}
-  <p className="text-gray-500 mb-4">
-    Brand:
-    <span className="font-medium text-black ml-1">
-      {product.brand || "No Brand"}
-    </span>
-  </p>
+          <div className="flex items-center gap-3 mb-5">
+            <div className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
+              ⭐ {product.rating?.toFixed(1)}
+            </div>
 
-  {/* Ratings */}
-  <div className="flex items-center gap-3 mb-5">
+            <span className="text-gray-500 text-sm">
+              ({product.numReviews} reviews)
+            </span>
+          </div>
 
-    <div className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
-      ⭐ {product.rating?.toFixed(1)}
-    </div>
+          <p className="text-gray-600 leading-relaxed mb-6">
+            {product.description}
+          </p>
 
-    <span className="text-gray-500 text-sm">
-      ({product.numReviews} reviews)
-    </span>
+          <div className="flex items-center gap-4 mb-6">
+            <h2 className="text-3xl font-bold text-green-600">
+              ₹ {product.price}
+            </h2>
 
-  </div>
+            {product.discountPrice && (
+              <span className="text-gray-400 line-through text-lg">
+                ₹ {product.discountPrice}
+              </span>
+            )}
+          </div>
 
-  {/* Description */}
-  <p className="text-gray-600 leading-relaxed mb-6">
-    {product.description}
-  </p>
+          <p
+            className={`mb-6 font-medium ${
+              product.stock > 0 ? "text-green-600" : "text-red-500"
+            }`}
+          >
+            {product.stock > 0 ? `In Stock (${product.stock})` : "Out of Stock"}
+          </p>
 
-  {/* Price */}
-  <div className="flex items-center gap-4 mb-6">
-
-    <h2 className="text-3xl font-bold text-green-600">
-      ₹ {product.price}
-    </h2>
-
-    {product.discountPrice && (
-      <span className="text-gray-400 line-through text-lg">
-        ₹ {product.discountPrice}
-      </span>
-    )}
-
-  </div>
-
-  {/* Stock */}
-  <p
-    className={`mb-6 font-medium ${
-      product.stock > 0
-        ? "text-green-600"
-        : "text-red-500"
-    }`}
-  >
-    {product.stock > 0
-      ? `In Stock (${product.stock})`
-      : "Out of Stock"}
-  </p>
-
-  {/* Button */}
-  <button
-    className={`w-fit px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-      isInCart
-        ? "bg-gray-400 cursor-not-allowed text-white"
-        : "bg-amber-400 hover:bg-amber-500 text-black"
-    }`}
-    onClick={() => dispatch(addToCart(product))}
-    disabled={isInCart}
-  >
-    {isInCart ? "Added to Cart" : "Add to Cart"}
-  </button>
-
-</div>
+          <button
+            className={`w-fit px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+              isInCart
+                ? "bg-gray-400 cursor-not-allowed text-white"
+                : "bg-amber-400 hover:bg-amber-500 text-black"
+            }`}
+            onClick={() => dispatch(addToCart(product))}
+            disabled={isInCart}
+          >
+            {isInCart ? "Added to Cart" : "Add to Cart"}
+          </button>
+        </div>
       </div>
       {!myReview && (
         <form onSubmit={handleSubmit}>
@@ -198,7 +197,7 @@ const Product = () => {
                 onChange={handleChange}
                 className="border rounded-lg p-2 w-full"
               >
-                <option>Select One</option>
+                <option value="">Select One</option>
                 <option value={5}>5</option>
                 <option value={4}>4</option>
                 <option value={3}>3</option>
@@ -228,10 +227,12 @@ const Product = () => {
         </form>
       )}
       {/* Reviews */}
+
       <div className="mt-12">
         <h2 className="text-2xl font-bold mb-6">Customer Reviews</h2>
-
-        {review.length === 0 ? (
+        {reviewLoading ? (
+          <p>Loading reviews...</p>
+        ) : review.length === 0 ? (
           <div className="bg-gray-100 rounded-xl p-6 text-center text-gray-500">
             No reviews yet
           </div>
@@ -246,7 +247,9 @@ const Product = () => {
                 <div className="flex justify-between items-center mb-3">
                   <div>
                     <h3 className="font-semibold text-lg">{rev.User?.name}</h3>
-                    <p className="text-sm text-gray-500">{formatDate(rev.createdAt)}</p>
+                    <p className="text-sm text-gray-500">
+                      {formatDate(rev.createdAt)}
+                    </p>
                   </div>
                   <span className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-sm font-medium">
                     ⭐ {rev.rating} / 5
@@ -255,15 +258,23 @@ const Product = () => {
 
                 {/* Comment */}
                 <p className="text-gray-700 leading-relaxed">{rev.comment}</p>
-                {rev.userId===user?.id && <div className="flex justify-end gap-3 mt-4">
-                  <button className="text-blue-600 font-medium">Edit</button>
+                {rev.userId === user?.id && (
+                  <div className="flex justify-end gap-3 mt-4">
+                    <button className="text-blue-600 font-medium">Edit</button>
 
-                  <button onClick={()=>handleDelete(rev.id)} className="text-red-600 font-medium">Delete</button>
-                </div>}
+                    <button
+                      onClick={() => handleDelete(rev.id)}
+                      className="text-red-600 font-medium"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
               </div>
             ))}
           </div>
         )}
+         
       </div>
     </div>
   );

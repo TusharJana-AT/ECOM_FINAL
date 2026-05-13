@@ -38,6 +38,7 @@ const Wishlist = () => {
       setWishlist((prev) =>
         prev.filter((item) => item.id !== productId)
       );
+      
     } catch (err) {
       console.error(err);
     } finally {
