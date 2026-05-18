@@ -17,7 +17,6 @@ export const registerUser = async ({
   if (existingUser) {
     const err = new Error("User already exists");
     err.statusCode = 409;
-
     throw err;
   }
 

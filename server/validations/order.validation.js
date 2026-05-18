@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const createOrderValidation = z.object({
-  paymentMethod: z.enum(["COD", "ONLINE"]),
+  paymentMethod: z.enum(["COD", "UPI"]),
 
   shippingAddress: z.string().min(5),
 

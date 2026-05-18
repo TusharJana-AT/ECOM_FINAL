@@ -25,27 +25,27 @@ export const AuthProvider = ({ children }) => {
   //   setLoading(false);
   // }, []);
   useEffect(() => {
-  const fetchUser = async () => {
-    const token = localStorage.getItem("token");
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
 
-    if (!token) {
-      setLoading(false);
-      return;
-    }
+      if (!token) {
+        setLoading(false);
+        return;
+      }
 
-    try {
-      const res = await getUser();
-      setUser(res.data.data);
-      // console.log("JANA", res.data.data);
-    } catch (error) {
-      localStorage.removeItem("token");
-    } finally {
-      setLoading(false);
-    }
-  };
+      try {
+        const res = await getUser();
+        setUser(res.data.data);
+        // console.log("JANA", res.data.data);
+      } catch (error) {
+        localStorage.removeItem("token");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchUser();
-}, []);
+    fetchUser();
+  }, []);
   const login = (data) => {
     localStorage.setItem("token", data.token);
     setUser(data.user);

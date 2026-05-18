@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 
 export const api = axios.create({
   baseURL: "http://localhost:5000/api",
+
 });
 
 // axios.get("/api/data", {
@@ -56,7 +57,7 @@ api.interceptors.response.use(
       localStorage.removeItem("token");
     } 
  
-    //  Forbidden
+    //  FOrbidden
     if (status === 403) {
       toast.error(message, {
         theme: "colored",

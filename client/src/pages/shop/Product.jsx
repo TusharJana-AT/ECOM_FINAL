@@ -243,7 +243,7 @@ const Product = () => {
                 key={rev.id}
                 className="border rounded-xl p-5 shadow-sm hover:shadow-md transition"
               >
-                {/* User + Rating */}
+
                 <div className="flex justify-between items-center mb-3">
                   <div>
                     <h3 className="font-semibold text-lg">{rev.User?.name}</h3>

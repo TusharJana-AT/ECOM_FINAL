@@ -14,6 +14,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   const [showFilters, setShowFilters] = useState(false);
   const { user,loading } = useAuth();
+  
   useEffect(() => {
     const fetchProducts = async () => {
       try {

@@ -18,7 +18,6 @@ const navigate = useNavigate();
 
     try {
       await registerUser(form);
-      alert("Registered! Now login");
       setForm({ name: "", email: "", password: "" });
       navigate("/login");
 

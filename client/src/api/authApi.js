@@ -1,7 +1,7 @@
 import { api } from "./api";
 
 export const loginUser = (data) =>
-  api.post("/auth/login", data, { showSuccessToast: true }); //, successMessage: "Login successful 🎉"
+  api.post("/auth/login", data, { showSuccessToast: true }); //, successMessage: "Login successful "
 export const registerUser = (data) =>
   api.post("/auth/register", data, { showSuccessToast: true });
 export const getUser = () => {

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/AuthContext";
 import { createProduct } from "../../api/productapi";
 
@@ -19,59 +19,68 @@ const AddProduct = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (loading) return;
+  // useEffect(() => {
+  //   if (loading) return;
 
-    if (!user) navigate("/login");
-    else if (user.role !== "admin") navigate("/");
-  }, [user, loading, navigate]);
+  //   if (!user) navigate("/login");
+  //   else if (user.role !== "admin") navigate("/");
+  // }, [user, loading, navigate]);
+if (loading) {
+  return <p>Loading...</p>;
+}
 
+if (!user) {
+  return <Navigate to="/login" />;
+}
+
+if (user.role !== "admin") {
+  return <Navigate to="/" />;
+}
   const handleChange = (e) => {
-  const { name, value, files } = e.target;
+    const { name, value, files } = e.target;
 
-  setForm((prev) => ({
-    ...prev,
-    [name]: files ? files[0] : value,
-  }));
-};
+    setForm((prev) => ({
+      ...prev,
+      [name]: files ? files[0] : value,
+    }));
+  };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    setLoadingSubmit(true);
+    try {
+      setLoadingSubmit(true);
 
-    const formData = new FormData();
+      const formData = new FormData();
 
-    formData.append("name", form.name);
-    formData.append("price", form.price);
-    formData.append("description", form.description);
-    formData.append("stock", form.stock);
-    formData.append("category", form.category);
+      formData.append("name", form.name);
+      formData.append("price", form.price);
+      formData.append("description", form.description);
+      formData.append("stock", form.stock);
+      formData.append("category", form.category);
 
-    if (form.image) {
-      formData.append("image", form.image);
+      if (form.image) {
+        formData.append("image", form.image);
+      }
+
+      await createProduct(formData);
+
+      setForm({
+        name: "",
+        price: "",
+        description: "",
+        image: "",
+        stock: "",
+        category: "",
+      });
+
+      navigate("/");
+    } catch (error) {
+      console.error(error.response?.data || error.message);
+    } finally {
+      setLoadingSubmit(false);
     }
-
-    await createProduct(formData);
-
-    setForm({
-      name: "",
-      price: "",
-      description: "",
-      image: "",
-      stock: "",
-      category: "",
-    });
-
-    navigate("/");
-
-  } catch (error) {
-    console.error(error.response?.data || error.message);
-  } finally {
-    setLoadingSubmit(false);
-  }
-};
+  };
 
   if (loading) return <p>Loading...</p>;
 
@@ -112,7 +121,7 @@ const handleSubmit = async (e) => {
           onChange={handleChange}
           className="w-full p-2 border rounded-lg"
         />
-        
+
         <select
           name="category"
           value={form.category}
@@ -126,7 +135,7 @@ const handleSubmit = async (e) => {
           <option value="fashion">Fashion</option>
           <option value="watch">Watch</option>
         </select>
- 
+
         <input
           name="image"
           type="file"

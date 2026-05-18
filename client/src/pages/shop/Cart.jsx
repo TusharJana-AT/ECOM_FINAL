@@ -11,27 +11,18 @@ const Cart = () => {
 
   const subtotal = cartItems.reduce(
     (acc, item) => acc + item.price * item.quantity,
-    0
+    0,
   );
 
   return (
     <div className="flex flex-col lg:flex-row gap-6 p-6 bg-gray-100 min-h-screen">
       <div className="flex-1 bg-white p-4 rounded-xl shadow">
-        <h1 className="text-2xl font-bold mb-4">
-          Shopping Cart
-        </h1>
+        <h1 className="text-2xl font-bold mb-4">Shopping Cart</h1>
 
         {cartItems.length === 0 ? (
-          <p className="text-gray-500">
-            Your cart is empty
-          </p>
+          <p className="text-gray-500">Your cart is empty</p>
         ) : (
-          cartItems.map((item) => (
-            <CartItem
-              key={item.id}
-              item={item}
-            />
-          ))
+          cartItems.map((item) => <CartItem key={item.id} item={item} />)
         )}
       </div>
 
