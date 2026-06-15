@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
       try {
         const res = await getUser();
         setUser(res.data.data);
-        // console.log("JANA", res.data.data);
+        console.log("JANA", res.data.data);
       } catch (error) {
         localStorage.removeItem("token");
       } finally {
@@ -49,7 +49,8 @@ export const AuthProvider = ({ children }) => {
   const login = (data) => {
     localStorage.setItem("token", data.token);
     setUser(data.user);
-
+    // console.log("JANA@",data);
+    
     // dispatch(clearWishlist());
     // dispatch(clearCart());
   };

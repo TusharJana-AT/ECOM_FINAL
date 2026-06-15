@@ -52,7 +52,7 @@ const Checkout = () => {
         paymentMethod,
       });
       // console.log("OOHHHH",res.data);
-      // toast.success("Order Placed Successfully.")
+      // toast.success("Order Placed Successfully.")f
       navigate("/success", {
         state: {
           total,
