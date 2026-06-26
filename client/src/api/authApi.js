@@ -10,3 +10,4 @@ export const getUser = () => {
 export const editProfile = (data) => {
   return api.put("/auth/edit-user", data, { showSuccessToast: true });
 };
+ 

@@ -13,9 +13,8 @@ const handleSubmit = async (e) => {
 
   try {
     const res = await loginUser(form);
-
-    login(res.data.data); // 
-
+    login(res.data.data); 
+    
     navigate("/");
   } catch (err) {
     console.log(err.response?.data);

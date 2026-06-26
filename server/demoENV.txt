@@ -9,3 +9,5 @@ MY_SECRET=CI18XqQt1KkOkqTm6jaUQxbWSdEJ2xrI8TMAPRw4KwruIc6FUCBKYweAwOAFJ0pP
 BASE_URL=http://localhost:5000
 
 NODE_ENV=dev
+
+https://maple-button-fa6.notion.site/Notes-34420a1c753d80cb8c0eff526f851f29
